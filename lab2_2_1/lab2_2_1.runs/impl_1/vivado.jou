@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:48:09 MDT 2021
+# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+# Start of session at: Mon Jan 30 00:13:59 2023
+# Process ID: 21192
+# Current directory: F:/Vivado/CE339Project/lab2_2_1/lab2_2_1.runs/impl_1
+# Command line: vivado.exe -log lab2_2_1.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source lab2_2_1.tcl -notrace
+# Log file: F:/Vivado/CE339Project/lab2_2_1/lab2_2_1.runs/impl_1/lab2_2_1.vdi
+# Journal file: F:/Vivado/CE339Project/lab2_2_1/lab2_2_1.runs/impl_1\vivado.jou
+# Running On: LAPTOP-09QC7VD2, OS: Windows, CPU Frequency: 2400 MHz, CPU Physical cores: 4, Host memory: 8506 MB
+#-----------------------------------------------------------
+source lab2_2_1.tcl -notrace
