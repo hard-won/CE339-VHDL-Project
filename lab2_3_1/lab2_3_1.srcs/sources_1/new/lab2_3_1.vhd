@@ -42,15 +42,40 @@ end lab2_2_3;
 
 architecture struct of lab2_2_3 is
 
-begin
-process(s,y)
+
+component or_gate port(
+    i0 : in std_logic;
+    i1 : in std_logic;
+    o : out std_logic_vector);
+end component;
+
+component and_gate port(
+    i0 : in std_logic;
+    i1 : in std_logic;
+    o : out std_logic_vector);
+end component;
+
+signal e1 : std_logic;
+signal e1 : std_logic;
 begin
 
-if (s = '0') then
-    m <= "00" after 3 ns;
-else
-    m <= y after 3 ns;
-end if;
 
-end process;
+and_comp : and_gate port map(
+    i0 => x,
+    i1 => s,
+    o => e1
+);
+
+and_comp : and_gate port map(
+    i0 => y,
+    i1 => s,
+    o => e2
+);
+
+or_comp : or_gate port map(
+    i0 => e1,
+    i1 => e2,
+    o => m
+);
+
 end struct;

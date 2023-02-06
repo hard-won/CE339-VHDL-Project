@@ -1,0 +1,2 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "F:/Vivado/CE339Project/lab2_5_2/lab2_5_2.srcs/sim_1/new/TestBench_7seg.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'bcdto7segment_dataflow'
