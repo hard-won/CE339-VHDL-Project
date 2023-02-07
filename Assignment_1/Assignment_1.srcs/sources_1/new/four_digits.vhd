@@ -34,20 +34,21 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity four_digits is
 --  Port ( );
 port(
-d3 : in STD_LOGIC_VECTOR (3 downto 0);
+d3 : in STD_LOGIC_VECTOR (3 downto 0); -- data for screen 3
 d2 : in STD_LOGIC_VECTOR (3 downto 0);
 d1 : in STD_LOGIC_VECTOR (3 downto 0);
 d0 : in STD_LOGIC_VECTOR (3 downto 0);
 ck : in STD_LOGIC;
-seg : out STD_LOGIC_VECTOR (6 downto 0);
+seg : out STD_LOGIC_VECTOR (6 downto 0); --7-segment display
 an : out STD_LOGIC_VECTOR (3 downto 0);
-dp : out std_logic);
+dp : out std_logic); -- 1hz signal control
 end four_digits;
 
 architecture Behavioral of four_digits is
 
 -- create a signal to store the current active digit
 signal active_digit: INTEGER range 0 to 3;
+signal digit : STD_LOGIC_VECTOR (3 downto 0);
 
 begin
 -- always process to determine the active digit
@@ -64,7 +65,7 @@ end if;
 end process;
 -- multiplex the digit inputs based on the active digit
 with active_digit select
-    seg <= d3 when 0,
+    digit <= d3 when 0,
            d2 when 1,
            d1 when 2,
            d0 when others;
@@ -75,6 +76,7 @@ an <= "0001" when active_digit = 0 else
       "0100" when active_digit = 2 else
       "1000" when active_digit = 3;
 
--- set the decimal point to low
-dp <= '0';
+-- main work to convert 4-bit data to 7-segment
+one_digit_unit : entity work.one_digit(Behavioral)
+        Port map (digit => digit, seg => seg);
 end Behavioral;

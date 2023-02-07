@@ -16,10 +16,10 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity main1_one_digit is
     Port (
-        sw   : in  STD_LOGIC_VECTOR (15 downto 0);
-        seg  : out STD_LOGIC_VECTOR (6 downto 0);
-        dp   : out STD_LOGIC;
-        an   : out STD_LOGIC_VECTOR (3 downto 0));
+        sw   : in  STD_LOGIC_VECTOR (15 downto 0); -- switches
+        seg  : out STD_LOGIC_VECTOR (6 downto 0);  -- 7 seg
+        dp   : out STD_LOGIC; -- blinking
+        an   : out STD_LOGIC_VECTOR (3 downto 0)); -- enable
 end main1_one_digit;
 
 architecture Behavioral of main1_one_digit is

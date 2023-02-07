@@ -6,7 +6,7 @@ entity one_digit is
            seg : out  STD_LOGIC_VECTOR (6 downto 0));
 end one_digit;
 
-architecture Behavioral of one_digit is
+architecture Behavioral of one_digit is  -- convert process from 4 bits data to 7 segment decoding
 begin
     process (digit)
     begin
