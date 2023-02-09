@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 2023/02/09 06:25:06
+-- Create Date: 2023/02/09 17:48:18
 -- Design Name: 
--- Module Name: div_60 - Behavioral
+-- Module Name: clk_1hour - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,28 +31,19 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
--- genarate minute or hour by using 60 seconds or 60 minutes (which depends on clk_in)
-entity div_60 is
-    Port ( clk_in : in STD_LOGIC; -- x hz
-           clk_out : out STD_LOGIC); -- x/60 hz
-end div_60;
+-- generate 1 hour by divide 1hz into 1/3600 hz
+entity clk_1hour is
+    Port ( clk_in : in STD_LOGIC; -- should be 1 min = 1/60 hz
+           clk_out : out STD_LOGIC); -- 1 hour = 1/3600 hz
+end clk_1hour;
 
-architecture Behavioral of div_60 is
-signal count: integer := 0;
-signal clk_temp : STD_LOGIC;
+architecture Behavioral of clk_1hour is
 
 begin
-process(clk_in)
-begin
-
-if rising_edge(clk_in) then
-count <= count + 1;
-if count = 29 then  -- half of 60
-clk_temp <= not clk_temp;
-count <= 0;
-end if;
-end if;
-clk_out <= clk_temp;
-end process;
+clk_div60_unit : entity work.div_60(Behavioral)
+port map(
+clk_in => clk_in,
+clk_out => clk_out
+);
 
 end Behavioral;
