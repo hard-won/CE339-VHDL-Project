@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 2023/02/09 17:39:36
+-- Create Date: 2023/02/11 02:53:32
 -- Design Name: 
--- Module Name: set_mode - Behavioral
+-- Module Name: clk_1ms - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,17 +31,25 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity set_mode is
-    Port ( digit_in : in STD_LOGIC;
-           btnU, btnD, btnC, btnL, btnR   : in  STD_LOGIC;
-           digit_out : out STD_LOGIC );
-end set_mode;
+entity clk_1ms is
+  port (
+    clk_100 : in std_logic; -- 100MHz clock
+    clk_1ms : out std_logic
+  ) ;
+end clk_1ms;
 
-architecture Behavioral of set_mode is
-signal mode_stage  :std_logic :=  '0';  -- '1' means set, '0' means run
-
+architecture Behavioral of clk_1ms is
+    signal counter : integer :=0;
 begin
-
-
-
-end Behavioral;
+  process (clk_100) begin
+    if (rising_edge(clk_100)) then
+        counter <= counter + 1;
+        if (counter>= 100000) then
+            counter <= 0;
+        end if ;
+    end if;
+  end process;
+    -- Now for first half the counter clk_1ms will remain 0 and for the remaining it will be 1
+    clk_1ms <= '0' when counter < 50000 else '1';
+    
+end Behavioral ;

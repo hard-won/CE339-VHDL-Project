@@ -34,11 +34,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity four_digits is
 --  Port ( );
 port(
-d3 : in STD_LOGIC_VECTOR (3 downto 0); -- data for screen 3
-d2 : in STD_LOGIC_VECTOR (3 downto 0);
-d1 : in STD_LOGIC_VECTOR (3 downto 0);
-d0 : in STD_LOGIC_VECTOR (3 downto 0);
-ck : in STD_LOGIC;
+d3 : in STD_LOGIC_VECTOR (3 downto 0); -- data for screen 4
+d2 : in STD_LOGIC_VECTOR (3 downto 0);  -- 3
+d1 : in STD_LOGIC_VECTOR (3 downto 0);  -- 2
+d0 : in STD_LOGIC_VECTOR (3 downto 0);  -- 1
+ck : in STD_LOGIC;  -- 1khz clock (refresh) for main_3 (buttonC input for main_2 simulation)
 seg : out STD_LOGIC_VECTOR (6 downto 0); --7-segment display
 an : out STD_LOGIC_VECTOR (3 downto 0);
 dp : out std_logic); -- 1hz signal control

@@ -29,7 +29,7 @@ begin
     -- instantiate one four_digits_unit decoder that will decode and
     -- and display one of the four digits
     four_digits_unit : entity work.four_digits(Behavioral)
-        Port map (d3 => sw(15 downto 12),
+        Port map (d3 => sw(15 downto 12), -- only for main_2, use sw to control
                   d2 => sw(11 downto 8),
                   d1 => sw(7 downto 4),
                   d0 => sw(3 downto 0),
