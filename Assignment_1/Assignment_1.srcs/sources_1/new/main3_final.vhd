@@ -14,7 +14,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity main3_final is port (
-   sw : in UNSIGNED (15 downto 0);
+--   sw : in UNSIGNED (15 downto 0);
    clk  : in  STD_LOGIC; -- basy3 has 100MHz clock
    btnU, btnD,  btnC  : in  STD_LOGIC;--btnL, btnR,
    seg  : out STD_LOGIC_VECTOR (6 downto 0);
@@ -56,10 +56,10 @@ begin
         seg <= seg_1;
         an <= an_1;
         digit_store <= digit_feedback_1;
-    else 
+    else                      -- run
         seg <= seg_2;
         an <= an_2;
-        if after_first = '0' then  -- 
+        if after_first = '0' then  -- initial data
             digit_store <= (others => '0');
         else
             digit_store <= digit_feedback_2;
@@ -80,6 +80,15 @@ port map(
            clk_out => dp    -- dp control the blinking point
 );
 
+run_mode_unit : entity work.run_mode
+port map(
+           digits_in => digit_store, --input data
+           clk => clk,
+           clk_1ms => clk_1ms,    --1khz signal
+           digits_out => digit_feedback_2, --output data to be stored
+           seg => seg_2,  --display number for 7 segment 
+           an => an_2   --control which screen to display
+);
 
 set_mode_unit : entity work.set_mode
 port map(
