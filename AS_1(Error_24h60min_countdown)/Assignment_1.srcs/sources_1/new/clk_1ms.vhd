@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 2023/02/09 06:25:06
+-- Create Date: 2023/02/11 02:53:32
 -- Design Name: 
--- Module Name: div_60 - Behavioral
+-- Module Name: clk_1ms - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,28 +31,25 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
--- genarate minute by using 60 seconds (which depends on clk_in)
-entity div_60 is
-    Port ( clk_in : in STD_LOGIC; -- x hz
-           clk_out : out STD_LOGIC); -- x/60 hz
-end div_60;
+entity clk_1ms is
+  port (
+    clk_100 : in std_logic; -- 100MHz clock
+    clk_1ms : out std_logic
+  ) ;
+end clk_1ms;
 
-architecture Behavioral of div_60 is
-signal count: integer := 0;
-signal clk_temp : STD_LOGIC;
-
+architecture Behavioral of clk_1ms is
+    signal counter : integer :=0;
 begin
-process(clk_in)
-begin
-
-if rising_edge(clk_in) then
-count <= count + 1;
-if count = 29 then  -- half of 60
-clk_temp <= not clk_temp;
-count <= 0;
-end if;
-end if;
-clk_out <= clk_temp;
-end process;
-
-end Behavioral;
+  process (clk_100) begin
+    if (rising_edge(clk_100)) then
+        counter <= counter + 1;
+        if (counter>= 100000) then
+            counter <= 0;
+        end if ;
+    end if;
+  end process;
+    -- Now for first half the counter clk_1ms will remain 0 and for the remaining it will be 1
+    clk_1ms <= '0' when counter < 50000 else '1';
+    
+end Behavioral ;

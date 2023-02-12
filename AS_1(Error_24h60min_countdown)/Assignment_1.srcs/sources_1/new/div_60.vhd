@@ -31,7 +31,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
--- genarate minute by using 60 seconds (which depends on clk_in)
+-- genarate minute or hour by using 60 seconds or 60 minutes (which depends on clk_in)
 entity div_60 is
     Port ( clk_in : in STD_LOGIC; -- x hz
            clk_out : out STD_LOGIC); -- x/60 hz

@@ -23,7 +23,19 @@ entity main3_final is port (
 end main3_final;
 
 architecture Behavioral of main3_final is
-signal 
+signal mode_stage : std_logic;
+signal digit_feedback_1 : STD_LOGIC_VECTOR (15 downto 0); -- set mode feedback
+signal digit_feedback_2 : STD_LOGIC_VECTOR (15 downto 0);
+signal seg_1 : STD_LOGIC_VECTOR (6 downto 0);
+signal seg_2 : STD_LOGIC_VECTOR (6 downto 0);
+signal an_1 :  STD_LOGIC_VECTOR (3 downto 0);
+signal an_2 :  STD_LOGIC_VECTOR (3 downto 0);
+
+--signal digit_feedback : STD_LOGIC_VECTOR (7 downto 0);
+
+signal digit_store : STD_LOGIC_VECTOR (15 downto 0);
+signal clk_1ms : STD_LOGIC;
+signal after_first : STD_LOGIC := '0';
 
 begin
 
@@ -35,9 +47,50 @@ wait until rising_edge(btnU);
     elsif mode_stage = '1' then
     mode_stage <= '0';  -- second flip to 0 - run mode
     end if;  
+    after_first <= '1';
 end process;
 
-with mode_stage select 
--- xxx when '1';
-   
+process
+begin
+    if mode_stage = '1' then  -- set
+        seg <= seg_1;
+        an <= an_1;
+        digit_store <= digit_feedback_1;
+    else 
+        seg <= seg_2;
+        an <= an_2;
+        if after_first = '0' then  -- 
+            digit_store <= (others => '0');
+        else
+            digit_store <= digit_feedback_2;
+        end if;
+    end if;
+end process;
+
+
+clk_refresh_unit : entity work.clk_1ms
+port map(
+            clk_100 => clk, -- 100MHz clock
+            clk_1ms => clk_1ms
+);
+
+clk_blink_unit : entity work.clk_1hz
+port map(
+           clk_in => clk,
+           clk_out => dp    -- dp control the blinking point
+);
+
+
+set_mode_unit : entity work.set_mode
+port map(
+           digits_in => digit_store, --input data
+           btnU => btnU,      -- up button
+           btnD => btnD,     --down button (decrease the number)
+           clk_1ms => clk_1ms,    --1khz signal
+           digits_out => digit_feedback_1, --output data to be stored
+           seg => seg_1,  --display number for 7 segment 
+           an => an_1   --control which screen to display
+);
+
+
 end Behavioral;
