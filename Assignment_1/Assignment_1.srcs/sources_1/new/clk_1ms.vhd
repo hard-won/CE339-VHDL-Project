@@ -44,12 +44,12 @@ begin
   process (clk_100) begin
     if (rising_edge(clk_100)) then
         counter <= counter + 1;
-        if (counter>= 100000) then
+        if (counter>= 10000) then
             counter <= 0;
         end if ;
     end if;
   end process;
     -- Now for first half the counter clk_1ms will remain 0 and for the remaining it will be 1
-    clk_1ms <= '0' when counter < 50000 else '1';
+    clk_1ms <= '0' when counter < 5000 else '1';
     
 end Behavioral ;
