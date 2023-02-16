@@ -42,7 +42,8 @@ entity run_mode is
 end run_mode;
 
 architecture Behavioral of run_mode is
-
+signal count : integer := 60;
+signal output : STD_LOGIC_VECTOR(15 downto 0);
 signal min_out :STD_LOGIC_VECTOR(7 downto 0);
 signal sec_out :STD_LOGIC_VECTOR(7 downto 0);
 signal clk_1s :STD_LOGIC;
@@ -78,6 +79,9 @@ wait until rising_edge(clk_1s);
             sec_out(7 downto 4)<= digits_in(7 downto 4);
             min_out<= digits_in(15 downto 8);           
         end if;
+--count <= count -1;
+--output <= std_logic_vector(to_unsigned(count, 16));
+
 
 end process;
 
@@ -88,8 +92,13 @@ four_digits_unit : entity work.four_digits(Behavioral)
                   d1 => sec_out(7 downto 4),  -- minute tens unit
                   d0 => sec_out(3 downto 0),  -- minute digit unit
                   ck => clk_1ms, seg => seg, an => an);
+--        Port map (d3 => output(15 downto 12),  -- hour tens unit
+--                  d2 => output(11 downto 8),  --hour digit unit
+--                  d1 => output(7 downto 4),  -- minute tens unit
+--                  d0 => output(3 downto 0),  -- minute digit unit
+--                  ck => clk_1ms, seg => seg, an => an);
 
 digits_out(7 downto 0)<= sec_out;
 digits_out(15 downto 8)<= min_out;
-
+--digits_out <= output;
 end Behavioral;

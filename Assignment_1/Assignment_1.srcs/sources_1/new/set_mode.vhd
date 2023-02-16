@@ -42,7 +42,6 @@ entity set_mode is
 end set_mode;
 
 architecture Behavioral of set_mode is
-
 signal min_out :STD_LOGIC_VECTOR(7 downto 0);
 signal sec_out :STD_LOGIC_VECTOR(7 downto 0);
 
@@ -51,20 +50,19 @@ begin
 set_mode_unit : entity work.set_deal_carry(Behavioral)
         Port map(
               btnU => btnU,
-              btnD => btnD,
-              
+              btnD => btnD,       
+--              clk => clk_1ms,
               min_ones_4bit => digits_in(3 downto 0),
               min_tens_4bit => digits_in(7 downto 4),
-          
               min_out => min_out,
               second_out_0 => sec_out
         );
 
 four_digits_unit : entity work.four_digits(Behavioral)
-        Port map (d3 => min_out(7 downto 4),  -- hour tens unit
-                  d2 => min_out(3 downto 0),  --hour digit unit
-                  d1 => sec_out(7 downto 4),  -- minute tens unit
-                  d0 => sec_out(3 downto 0),  -- minute digit unit
+        Port map (d3 => min_out(7 downto 4),  -- min tens unit
+                  d2 => min_out(3 downto 0),  --min ones unit
+                  d1 => sec_out(7 downto 4),  -- sec tens unit
+                  d0 => sec_out(3 downto 0),  -- sec ones unit
                   ck => clk_1ms, seg => seg, an => an);
 
 digits_out(7 downto 0)<= sec_out;

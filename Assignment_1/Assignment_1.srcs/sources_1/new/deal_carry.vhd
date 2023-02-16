@@ -38,10 +38,9 @@ entity set_deal_carry is
 Port ( 
       btnU : in STD_LOGIC;    --add 1
       btnD : in STD_LOGIC;    --minus 1 
-      
+--      clk : STD_LOGIC;
       min_ones_4bit : in STD_LOGIC_VECTOR (3 downto 0);
       min_tens_4bit : in STD_LOGIC_VECTOR (3 downto 0); 
-      
       min_out : out STD_LOGIC_VECTOR (7 downto 0);  -- 8 bits to display dealed carry minute
       second_out_0 : out STD_LOGIC_VECTOR (7 downto 0) -- when set, second is all zero
 );
@@ -66,9 +65,9 @@ min_origin <= min_tens_4bit & min_ones_4bit; -- no change, initial is 00000000
 process
 begin
 
-    wait until rising_edge(btnU); --adding
     second_out_0 <= (others => '0');
-    if (CONV_INTEGER(min_ones_4bit & min_tens_4bit)) < 60 then
+if btnU'event and btnU = '1' then --adding
+--    if (CONV_INTEGER(min_ones_4bit & min_tens_4bit)) < 60 then
     if min_ones_4bit = "1001" then  -- ones is 9
         min_ones_carry_add <= "0000";
         --min_tens_carry <= min_tens_4bit;
@@ -81,10 +80,8 @@ begin
         min_ones_carry_add <= min_ones_4bit + 1;
         min_tens_carry_add <= min_tens_4bit;
     end if;
-    end if;
-    
-    wait until rising_edge(btnD); -- minus
-    second_out_0 <= (others => '0');
+end if;
+if btnD'event and btnD = '1' then -- btnD pressed -- minus
     if min_ones_4bit = "0000" then  -- ones is 0
         min_ones_carry_minus <= "1001";
         --min_tens_carry <= min_tens_4bit;
@@ -97,7 +94,8 @@ begin
         min_ones_carry_minus <= min_ones_4bit - 1;
         min_tens_carry_minus <= min_tens_4bit;
     end if;    
-
+end if;
+--end if;
 end process;
 
 chosen(0)<=btnU; --change output data control

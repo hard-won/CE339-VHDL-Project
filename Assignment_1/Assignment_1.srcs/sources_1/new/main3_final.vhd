@@ -26,6 +26,7 @@ architecture Behavioral of main3_final is
 signal mode_stage : std_logic;
 signal digit_feedback_1 : STD_LOGIC_VECTOR (15 downto 0); -- set mode feedback
 signal digit_feedback_2 : STD_LOGIC_VECTOR (15 downto 0);
+signal digit_feedback : STD_LOGIC_VECTOR (15 downto 0);
 signal seg_1 : STD_LOGIC_VECTOR (6 downto 0);
 signal seg_2 : STD_LOGIC_VECTOR (6 downto 0);
 signal an_1 :  STD_LOGIC_VECTOR (3 downto 0);
@@ -41,7 +42,7 @@ begin
 
 process
 begin
-wait until rising_edge(btnU); 
+wait until rising_edge(btnC); 
     if mode_stage = '0' then  -- chage stage (only 2 stages)
     mode_stage <= '1';  -- first press to enter 1 - set mode
     elsif mode_stage = '1' then
@@ -50,23 +51,20 @@ wait until rising_edge(btnU);
     after_first <= '1';
 end process;
 
-process
-begin
-    if mode_stage = '1' then  -- set
-        seg <= seg_1;
-        an <= an_1;
-        digit_store <= digit_feedback_1;
-    else                      -- run
-        seg <= seg_2;
-        an <= an_2;
-        if after_first = '0' then  -- initial data
-            digit_store <= (others => '0');
-        else
-            digit_store <= digit_feedback_2;
-        end if;
-    end if;
-end process;
 
+with after_first select 
+digit_store<= digit_feedback when '1', 
+              (others => '0') when others;
+
+with mode_stage select 
+    seg <= seg_1 when '1',
+           seg_2 when others;
+with mode_stage select 
+    an <= an_1 when '1',
+         an_2 when others;
+with mode_stage select 
+    digit_feedback <= digit_feedback_1 when '1',
+                      digit_feedback_2 when others;
 
 clk_refresh_unit : entity work.clk_1ms
 port map(
