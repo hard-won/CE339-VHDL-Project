@@ -1,7 +1,7 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
-| Date         : Fri Feb 17 01:25:33 2023
+| Date         : Fri Feb 17 17:37:31 2023
 | Host         : LAPTOP-09QC7VD2 running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file main3_final_control_sets_placed.rpt
 | Design       : main3_final
@@ -27,7 +27,7 @@ Table of Contents
 |    Minimum number of control sets                        |    13 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    40 |
+| Unused register locations in slices containing registers |    48 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -40,8 +40,8 @@ Table of Contents
 |       Fanout       | Count |
 +--------------------+-------+
 | Total control sets |    13 |
-| >= 0 to < 4        |     1 |
-| >= 4 to < 6        |     8 |
+| >= 0 to < 4        |     3 |
+| >= 4 to < 6        |     6 |
 | >= 6 to < 8        |     0 |
 | >= 8 to < 10       |     1 |
 | >= 10 to < 12      |     0 |
@@ -58,34 +58,34 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              18 |           10 |
+| No           | No                    | No                     |              49 |           16 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |             118 |           39 |
-| Yes          | No                    | No                     |               0 |            0 |
+| No           | Yes                   | No                     |              79 |           25 |
+| Yes          | No                    | No                     |               2 |            2 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |               0 |            0 |
+| Yes          | Yes                   | No                     |               6 |            4 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 4. Detailed Control Set Information
 -----------------------------------
 
-+-----------------------------------+---------------+---------------------------------------+------------------+----------------+--------------+
-|            Clock Signal           | Enable Signal |            Set/Reset Signal           | Slice Load Count | Bel Load Count | Bels / Slice |
-+-----------------------------------+---------------+---------------------------------------+------------------+----------------+--------------+
-|  btnC_IBUF_BUFG                   |               |                                       |                2 |              2 |         1.00 |
-|  btnD_IBUF_BUFG                   |               | run_mode_unit/SR[0]                   |                2 |              4 |         2.00 |
-|  btnD_IBUF_BUFG                   |               | run_mode_unit/sec_out_reg[2]_0        |                4 |              4 |         1.00 |
-|  clk_IBUF_BUFG                    |               |                                       |                4 |              4 |         1.00 |
-|  btnU_IBUF_BUFG                   |               | run_mode_unit/sec_out_reg[2]_1[0]     |                2 |              4 |         2.00 |
-|  btnU_IBUF_BUFG                   |               | run_mode_unit/eqOp_0                  |                3 |              4 |         1.33 |
-|  clk_refresh_unit/CLK             |               |                                       |                1 |              4 |         4.00 |
-|  run_mode_unit/clk_blink_unit/CLK |               | run_mode_unit/sec_out[7]_i_1_n_0      |                2 |              4 |         2.00 |
-|  run_mode_unit/clk_blink_unit/CLK |               | run_mode_unit/sec_out_reg[2]_0        |                2 |              4 |         2.00 |
-|  run_mode_unit/clk_blink_unit/CLK |               |                                       |                3 |              8 |         2.67 |
-|  clk_IBUF_BUFG                    |               | clk_blink_unit/clk_temp               |                8 |             31 |         3.88 |
-|  clk_IBUF_BUFG                    |               | run_mode_unit/clk_blink_unit/clk_temp |                8 |             31 |         3.88 |
-|  clk_IBUF_BUFG                    |               | clk_refresh_unit/clear                |                8 |             32 |         4.00 |
-+-----------------------------------+---------------+---------------------------------------+------------------+----------------+--------------+
++-------------------------+--------------------+-----------------------------------+------------------+----------------+--------------+
+|       Clock Signal      |    Enable Signal   |          Set/Reset Signal         | Slice Load Count | Bel Load Count | Bels / Slice |
++-------------------------+--------------------+-----------------------------------+------------------+----------------+--------------+
+|  btnU_IBUF_BUFG         | run_mode_unit/E[0] |                                   |                2 |              2 |         1.00 |
+|  btnU_IBUF_BUFG         | run_mode_unit/E[0] | run_mode_unit/SR[0]               |                2 |              2 |         1.00 |
+|  btnC_IBUF_BUFG         |                    |                                   |                1 |              2 |         2.00 |
+|  run_mode_unit/clk_temp |                    | run_mode_unit/sec_out_reg[2]_0    |                3 |              4 |         1.33 |
+|  run_mode_unit/clk_temp |                    | run_mode_unit/sec_out[7]_i_1_n_0  |                2 |              4 |         2.00 |
+|  btnU_IBUF_BUFG         | run_mode_unit/E[0] | run_mode_unit/sec_out_reg[6]_0[0] |                2 |              4 |         2.00 |
+|  btnD_IBUF_BUFG         |                    | run_mode_unit/sec_out_reg[2]_0    |                3 |              4 |         1.33 |
+|  btnD_IBUF_BUFG         |                    | run_mode_unit/sec_out_reg[2]_1[0] |                1 |              4 |         4.00 |
+|  clk_refresh_unit/CLK   |                    |                                   |                1 |              4 |         4.00 |
+|  run_mode_unit/clk_temp |                    |                                   |                3 |              8 |         2.67 |
+|  clk_IBUF_BUFG          |                    | clk_blink_unit/clk_temp           |                8 |             31 |         3.88 |
+|  clk_IBUF_BUFG          |                    | clk_refresh_unit/clear            |                8 |             32 |         4.00 |
+|  clk_IBUF_BUFG          |                    |                                   |               11 |             35 |         3.18 |
++-------------------------+--------------------+-----------------------------------+------------------+----------------+--------------+
 
 

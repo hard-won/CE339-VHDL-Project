@@ -33,12 +33,12 @@ use ieee.std_logic_unsigned.all;
 --use UNISIM.VComponents.all;
 
 entity run_mode is
-    Port ( digits_in : in STD_LOGIC_VECTOR(15 downto 0); --input data
-           clk : in STD_LOGIC; -- 100MHz
-           clk_1ms : in STD_LOGIC;    --1ms signal
+    Port ( digits_in : in STD_LOGIC_VECTOR(15 downto 0);                      --input data
+           clk : in STD_LOGIC;                                                -- 100MHz
+           clk_1ms : in STD_LOGIC;                                            --1ms refresh signal
            digits_out :  out STD_LOGIC_VECTOR(15 downto 0):= (others => '0'); --output data to be stored
-           seg : out STD_LOGIC_VECTOR(6 downto 0);   --display number for 7 segment 
-           an : out STD_LOGIC_VECTOR(3 downto 0));   --control which screen to display
+           seg : out STD_LOGIC_VECTOR(6 downto 0);                            --display number for 7 segment 
+           an : out STD_LOGIC_VECTOR(3 downto 0));                            --control which screen to display
 end run_mode;
 
 architecture Behavioral of run_mode is
@@ -47,22 +47,30 @@ signal output : STD_LOGIC_VECTOR(15 downto 0);
 signal min_out :STD_LOGIC_VECTOR(7 downto 0);
 signal sec_out :STD_LOGIC_VECTOR(7 downto 0);
 signal clk_1s :STD_LOGIC;
+signal count_1 : integer := 0;
+signal clk_temp : STD_LOGIC;
 
 begin
-
-clk_blink_unit : entity work.clk_1hz
-port map(
-           clk_in => clk,
-           clk_out => clk_1s    -- dp control the blinking point
-);
+process(clk)                                                                    -- clk as input, countine process loop
+begin
+if rising_edge(clk) then                                                        -- trigger when rising edge
+    count_1 <= count_1 + 1;
+    -- '49999999' means count after 49999999, half of time in one 1Hz clock is over
+    if (count_1 = 49999999) then
+        clk_temp <= not clk_temp;
+        count <= 0;
+    end if;
+end if;
+clk_1s <= clk_temp;
+end process;
 
 process
 begin
 wait until rising_edge(clk_1s);
-        if digits_in(3 downto 0) = "0000" then    --unit digit 0 - 1
-            sec_out(3 downto 0)<="1001";          -- 9
-            if digits_in(7 downto 4)="0000" then  --digit 00 - 1
-                sec_out(7 downto 4) <="0101";    -- 5
+        if digits_in(3 downto 0) = "0000" then                                 -- digit 0 - 1
+            sec_out(3 downto 0)<="1001";                                       -- 0 turn to 9
+            if digits_in(7 downto 4)="0000" then                               -- digit 00 - 1
+                sec_out(7 downto 4) <="0101";                                  --00 turn to 59
                 if digits_in(11 downto 8) = "0000" then
                     min_out(7 downto 4) <= digits_in(15 downto 12) - 1;
                     min_out(3 downto 0) <= "1001";
@@ -71,34 +79,22 @@ wait until rising_edge(clk_1s);
                     min_out(3 downto 0) <= digits_in(11 downto 8) - 1;    
                 end if;                
             else 
-                sec_out(7 downto 4)<= digits_in(7 downto 4) - 1; -- no carry
-                min_out <= digits_in(15 downto 8);  -- no changing minute
+                sec_out(7 downto 4)<= digits_in(7 downto 4) - 1;               -- no carry
+                min_out <= digits_in(15 downto 8);                             -- no changing minute
             end if;
         else 
-            sec_out(3 downto 0)<= digits_in(3 downto 0) - 1; --no carry
+            sec_out(3 downto 0)<= digits_in(3 downto 0) - 1;                   --no carry
             sec_out(7 downto 4)<= digits_in(7 downto 4);
             min_out<= digits_in(15 downto 8);           
         end if;
---count <= count -1;
---output <= std_logic_vector(to_unsigned(count, 16));
-
-
 end process;
 
-
 four_digits_unit : entity work.four_digits(Behavioral)
-        Port map (d3 => min_out(7 downto 4),  -- hour tens unit
-                  d2 => min_out(3 downto 0),  --hour digit unit
-                  d1 => sec_out(7 downto 4),  -- minute tens unit
-                  d0 => sec_out(3 downto 0),  -- minute digit unit
+        Port map (d3 => min_out(7 downto 4),                                   -- min tens
+                  d2 => min_out(3 downto 0),                                   -- min ones
+                  d1 => sec_out(7 downto 4),                                   -- sec tens
+                  d0 => sec_out(3 downto 0),                                   -- sec ones
                   ck => clk_1ms, seg => seg, an => an);
---        Port map (d3 => output(15 downto 12),  -- hour tens unit
---                  d2 => output(11 downto 8),  --hour digit unit
---                  d1 => output(7 downto 4),  -- minute tens unit
---                  d0 => output(3 downto 0),  -- minute digit unit
---                  ck => clk_1ms, seg => seg, an => an);
-
 digits_out(7 downto 0)<= sec_out;
 digits_out(15 downto 8)<= min_out;
---digits_out <= output;
 end Behavioral;

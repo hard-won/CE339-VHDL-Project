@@ -10,3 +10,5 @@
 # Journal file: F:/Vivado/CE339Project/Assignment_1\vivado.jou
 # Running On: LAPTOP-09QC7VD2, OS: Windows, CPU Frequency: 2400 MHz, CPU Physical cores: 4, Host memory: 8506 MB
 #-----------------------------------------------------------
+start_gui
+open_project F:/Vivado/CE339Project/Assignment_1/Assignment_1.xpr

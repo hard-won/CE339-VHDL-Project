@@ -33,7 +33,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity clk_1ms is
   port (
-    clk_100 : in std_logic; -- 100MHz clock
+    clk_100 : in std_logic;                                     -- 100MHz clock
     clk_1ms : out std_logic
   ) ;
 end clk_1ms;

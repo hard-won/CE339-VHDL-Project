@@ -34,7 +34,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 -- clk_1 output the 1Hz(1 second) clock signal while input clk_in should be Basy3 default 100MHz clock
 entity clk_1hz is
     Port ( clk_in : in STD_LOGIC;
-           clk_out : out STD_LOGIC); -- 1Hz genarate from clk which is 100MHz
+           clk_out : out STD_LOGIC);        -- 1Hz genarate from clk which is 100MHz
 end clk_1hz;
 
 architecture Behavioral of clk_1hz is
@@ -42,7 +42,7 @@ signal count : integer := 0;
 signal clk_temp : STD_LOGIC;
 
 begin
-process(clk_in) -- clk as input, countine process loop
+process(clk_in)                             -- clk as input, countine process loop
 begin
 
 -- trigger when rising edge

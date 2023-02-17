@@ -46,23 +46,20 @@ signal min_out :STD_LOGIC_VECTOR(7 downto 0);
 signal sec_out :STD_LOGIC_VECTOR(7 downto 0);
 
 begin
-
 set_mode_unit : entity work.set_deal_carry(Behavioral)
         Port map(
               btnU => btnU,
-              btnD => btnD,       
---              clk => clk_1ms,
+              btnD => btnD,   
               min_ones_4bit => digits_in(3 downto 0),
               min_tens_4bit => digits_in(7 downto 4),
               min_out => min_out,
-              second_out_0 => sec_out
+              second_out_0 => sec_out                                           -- when set mode, sec output should be always all zeros
         );
-
 four_digits_unit : entity work.four_digits(Behavioral)
-        Port map (d3 => min_out(7 downto 4),  -- min tens unit
-                  d2 => min_out(3 downto 0),  --min ones unit
-                  d1 => sec_out(7 downto 4),  -- sec tens unit
-                  d0 => sec_out(3 downto 0),  -- sec ones unit
+        Port map (d3 => min_out(7 downto 4),                                    -- min tens
+                  d2 => min_out(3 downto 0),                                    -- min ones
+                  d1 => sec_out(7 downto 4),                                    -- sec tens
+                  d0 => sec_out(3 downto 0),                                    -- sec ones
                   ck => clk_1ms, seg => seg, an => an);
 
 digits_out(7 downto 0)<= sec_out;
