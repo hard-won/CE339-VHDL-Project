@@ -1,8 +1,12 @@
 # Assignment_1
 
+1909176 Shengyi
+
 ## Description
 
 Implemented a countdown timer with a maximum of 60 minutes. In set mode, seconds display as 0 and minutes can be adjusted. In GO mode, countdown is in seconds.
+
+
 
 ## Detail Requirement
 
