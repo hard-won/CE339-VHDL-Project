@@ -1,0 +1,95 @@
+commit 9f620f9bc6bc179b47754a6f950a00ae3dc3a5e7
+Author: wsy <hardtowon@gmail.com>
+Date:   Fri Feb 17 17:44:17 2023 +0800
+
+    update comment
+
+commit 73c9761e33474664c84e15b80c842dc4a31a07d6
+Author: wsy <hardtowon@gmail.com>
+Date:   Fri Feb 17 17:43:06 2023 +0800
+
+    update comment
+
+commit 26a96b9ee6d553f7bfb1022a7fd3b00b6e661220
+Author: wsy <hardtowon@gmail.com>
+Date:   Fri Feb 17 15:01:09 2023 +0800
+
+    update readme.md
+
+commit d7e3cc57d4809ed73308db9217ac5f62137dfefc
+Author: wsy <hardtowon@gmail.com>
+Date:   Fri Feb 17 02:04:21 2023 +0800
+
+    update assignment1
+
+commit 950b432e2c250d4fa94d29b6749e0efe02979571
+Author: wsy <hardtowon@gmail.com>
+Date:   Thu Feb 16 18:52:37 2023 +0800
+
+    update assignment1
+
+commit 865e45f3bb38d509337054f74bc8eacbadd833e3
+Author: wsy <hardtowon@gmail.com>
+Date:   Wed Feb 15 00:15:06 2023 +0800
+
+    update assignment1 and description
+
+commit 13629047895bcc8a7450912840044f5c8ae53b7c
+Author: wsy <hardtowon@gmail.com>
+Date:   Mon Feb 13 01:29:31 2023 +0800
+
+    update assignment1 waiting test
+
+commit 58939f6d5dd8d82fbad6bec0ceb91b3be4442373
+Author: wsy <hardtowon@gmail.com>
+Date:   Sun Feb 12 23:39:00 2023 +0800
+
+    update assignment1 with carry design
+
+commit c66a0b05dc401ed02c32c4333b3279fae7993ed1
+Author: wsy <hardtowon@gmail.com>
+Date:   Sat Feb 11 06:24:37 2023 +0800
+
+    update assignment1
+
+commit 6866253c3b612ce7f1f6dba0617f190de2f3b267
+Author: wsy <hardtowon@gmail.com>
+Date:   Fri Feb 10 01:14:19 2023 +0800
+
+    update Assignment1
+
+commit 5b8b0c0a8c64b83964bfaa8384c2841e155419c0
+Author: wsy <hardtowon@gmail.com>
+Date:   Thu Feb 9 10:04:01 2023 +0800
+
+    create clk_1hz.vhd and div_60.vhd
+
+commit 07fedb2e395771b54f638f35e8ea78d34d6f5768
+Author: wsy <hardtowon@gmail.com>
+Date:   Wed Feb 8 02:06:39 2023 +0800
+
+    update assignment_1
+
+commit 7134590bf807a9e6933975a84e55a0b0c6af5aea
+Author: wsy <hardtowon@gmail.com>
+Date:   Mon Feb 6 18:02:30 2023 +0800
+
+    lab commit
+
+commit 8cbef52d128b9a108c6a328341e2e138efa4554f
+Author: wsy <hardtowon@gmail.com>
+Date:   Mon Feb 6 18:01:38 2023 +0800
+
+    Assignment_1 first commit
+
+commit a9d03053a3eeb84ada868d6ae3339a4719ce18d2
+Author: wsy <hardtowon@gmail.com>
+Date:   Thu Feb 2 21:00:50 2023 +0800
+
+    first commit
+
+commit dc2da06dab4462e87c214d6e0dafd901b3f5a997
+Author: wsy <hardtowon@gmail.com>
+Date:   Thu Feb 2 20:32:45 2023 +0800
+
+    init project
