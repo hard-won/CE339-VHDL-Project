@@ -1,6 +1,6 @@
 # Assignment_1
 
-1909176 Shengyi
+1909176  Shengyi Wei
 
 ## Description
 
